@@ -1,0 +1,71 @@
+[user]
+	name = Cooper de Nicola
+	email = cdenicola@cs.stanford.edu
+
+[core]
+  autocrlf = input  # keep newlines as in input
+  compression = 9  # trade cpu for network
+  fsync = none
+  whitespace = error  # threat incorrect whitespace as errors
+  #pager = diff-so-fancy | less --tabs=4 -RFX
+
+[init]
+	defaultBranch = main
+
+[blame]
+    coloring = highlightRecent
+    date = relative
+
+[pull]
+	rebase = true
+
+#[diff]
+#	tool = nvim
+#  context = 3
+#  renames = copies
+#  interHunkContext = 10
+
+[log]
+  abbrevCommit = true  # short commits
+  graphColors = blue,yellow,cyan,magenta,green,red
+
+[status]
+    branch = true
+    short = true
+    showStash = true
+    showUntrackedFiles = all  # show individual untracked files
+
+[pager]
+    branch = false  # no need to use pager for git branch
+    diff = diff-so-fancy | ${PAGER:-less --tabs=4 -RFX}  # diff-so-fancy as diff pager
+
+[push]
+    autoSetupRemote = true  # easier to push new branches
+    default = current  # push only current branch by default
+    followTags = true  # push also tags
+    gpgSign = false  # my remotes doesn't support sign pushes
+
+[color "branch"]
+    current  = magenta
+    local    = default
+    remote   = yellow
+    upstream = green
+    plain    = blue
+
+[color "diff"]
+    meta       = black bold
+    frag       = magenta
+    context    = white
+    whitespace = yellow reverse
+
+[interactive]
+    diffFilter = diff-so-fancy --patch
+    singlekey = true
+
+# Third-party: diff-so-fancy
+[diff-so-fancy]
+    markEmptyLines = false
+
+# URL shortcuts
+[url "git@github.com:"]
+    insteadOf = "gh:"
