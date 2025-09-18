@@ -1,0 +1,7 @@
+[submodule "catppuccin-ghostty"]
+	path = catppuccin-ghostty
+	url = https://github.com/catppuccin/ghostty.git
+[submodule "submodules/catppuccin-ghostty"]
+	path = submodules/catppuccin-ghostty
+	url = https://github.com/catppuccin/ghostty.git
+	branch = main

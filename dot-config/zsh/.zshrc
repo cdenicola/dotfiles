@@ -65,3 +65,6 @@ alias du='du -h'
 # Aliases: safety
 #alias cp='cp --interactive'
 #alias mv='mv --interactive'
+
+# Auto complete
+autoload -U compinit; compinit
