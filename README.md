@@ -18,7 +18,7 @@ stow --dotfiles .
 ```
 
 ## Submodules
-## Clone repo *with* submodules
+### Clone repo *with* submodules
 When cloning repo
 ```zsh
 git clone --recurse-submodules git@github.com:cdenicola/dotfiles.git ~/dotfiles
