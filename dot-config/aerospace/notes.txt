@@ -1,0 +1,4 @@
+# https://nikitabobko.github.io/AeroSpace/guide#a-note-on-mission-control
+```zsh
+defaults write com.apple.dock expose-group-apps -bool true && killall Dock
+```
