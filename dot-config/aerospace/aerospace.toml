@@ -136,68 +136,42 @@ automatically-unhide-macos-hidden-apps = true
     alt-shift-9 = 'move-node-to-workspace 9'
     alt-shift-0 = 'move-node-to-workspace 0'
     
-    # CUSTOM NAMED
+    ################################
+    # Keybindings
+    ################################
+
     # Browser
-    alt-b = 'workspace B'
-    alt-shift-b = 'move-node-to-workspace B'
-        [[on-window-detected]]
-        if.app-id = 'com.google.Chrome'
-        run = "move-node-to-workspace B" 
+    alt-b = "workspace B"
+    alt-shift-b = "move-node-to-workspace B"
 
-    # Code (vs, cursor, etc)
-    alt-c = 'workspace C'
-    alt-shift-c = 'move-node-to-workspace C'
-        [[on-window-detected]]
-        if.app-id = 'com.microsoft.VSCode'
-        run = "move-node-to-workspace C" 
+    # Code (VS Code, Cursor, etc)
+    alt-c = "workspace C"
+    alt-shift-c = "move-node-to-workspace C"
 
-    # file Explorer
-    alt-e = 'workspace E'
-    alt-shift-e = 'move-node-to-workspace E'
-        [[on-window-detected]]
-        if.app-id = 'com.apple.finder'
-        run = "move-node-to-workspace E"
-    
-    # Messages
-    alt-m = 'workspace M' 
-    alt-shift-m = 'move-node-to-workspace M'
-        [[on-window-detected]]
-        if.app-id = 'org.whispersystems.signal-desktop'
-        run = "move-node-to-workspace M"
-        [[on-window-detected]]
-        if.app-id = 'com.apple.MobileSMS'
-        run = "move-node-to-workspace M"
+    # File Explorer
+    alt-e = "workspace E"
+    alt-shift-e = "move-node-to-workspace E"
 
-    # Notes
-    alt-n = 'workspace N'
-    alt-shift-n = 'move-node-to-workspace N'
-        [[on-window-detected]]
-        if.app-id = 'com.apple.Notes'
-        run = "move-node-to-workspace N"
-        [[on-window-detected]]
-        if.app-id = 'md.obsidian'
-        run = "move-node-to-workspace N"
+    # Messages (Signal + iMessage)
+    alt-m = "workspace M"
+    alt-shift-m = "move-node-to-workspace M"
+
+    # Notes (Notes + Obsidian)
+    alt-n = "workspace N"
+    alt-shift-n = "move-node-to-workspace N"
 
     # Slack
-    alt-s = 'workspace S'
-    alt-shift-s = 'move-node-to-workspace S'
-        [[on-window-detected]]
-        if.app-id = 'com.tinyspeck.slackmacgap'
-        run = "move-node-to-workspace S"
+    alt-s = "workspace S"
+    alt-shift-s = "move-node-to-workspace S"
 
     # Terminal
-    alt-t = 'workspace T'
-    alt-shift-t = 'move-node-to-workspace T'
-        [[on-window-detected]]
-        if.app-id = 'com.mitchellh.ghostty'
-        run = "move-node-to-workspace T" 
+    alt-t = "workspace T"
+    alt-shift-t = "move-node-to-workspace T"
 
-    # Vpn
-    alt-shift-v = 'move-node-to-workspace V'
-    alt-v = 'workspace V'
-        [[on-window-detected]]
-        if.app-id = 'ch.protonvpn.mac'
-        run = "move-node-to-workspace V"
+    # VPN
+    alt-v = "workspace V"
+    alt-shift-v = "move-node-to-workspace V"
+
 
     # See: https://nikitabobko.github.io/AeroSpace/commands#workspace-back-and-forth
     alt-tab = 'workspace-back-and-forth'
@@ -208,6 +182,58 @@ automatically-unhide-macos-hidden-apps = true
     alt-shift-semicolon = 'mode service'
     
     alt-shift-f = 'fullscreen'
+
+    ################################
+    # Window Rules
+    ################################
+
+    # Browser -> B
+    [[on-window-detected]]
+    if.app-id = "com.google.Chrome"
+    run = "move-node-to-workspace B"
+
+    # Code -> C
+    [[on-window-detected]]
+    if.app-id = "com.microsoft.VSCode"
+    run = "move-node-to-workspace C"
+
+    # File Explorer -> E
+    [[on-window-detected]]
+    if.app-id = "com.apple.finder"
+    run = "move-node-to-workspace E"
+
+    # Messages -> M
+    [[on-window-detected]]
+    if.app-id = "org.whispersystems.signal-desktop"
+    run = "move-node-to-workspace M"
+
+    [[on-window-detected]]
+    if.app-id = "com.apple.MobileSMS"
+    run = "move-node-to-workspace M"
+
+    # Notes -> N
+    [[on-window-detected]]
+    if.app-id = "com.apple.Notes"
+    run = "move-node-to-workspace N"
+
+    [[on-window-detected]]
+    if.app-id = "md.obsidian"
+    run = "move-node-to-workspace N"
+
+    # Slack -> S
+    [[on-window-detected]]
+    if.app-id = "com.tinyspeck.slackmacgap"
+    run = "move-node-to-workspace S"
+
+    # Terminal -> T
+    [[on-window-detected]]
+    if.app-id = "com.mitchellh.ghostty"
+    run = "move-node-to-workspace T"
+
+    # VPN -> V
+    [[on-window-detected]]
+    if.app-id = "ch.protonvpn.mac"
+    run = "move-node-to-workspace V"
 
 
 # 'service' binding mode declaration.
