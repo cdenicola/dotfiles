@@ -1,21 +1,28 @@
 # Common tool aliases
-alias vim='nvim'
-alias vi='nvim'
-alias v='nvim'
-alias cat='bat'
-alias weather='curl wttr.in'
-alias fzff='fzf --preview "bat --color=always {}" --preview-window "~3"'
-alias yt-dlp="$HOME/Desktop/tools/yt-dlp/yt-dlp"
+if (( $+commands[nvim] )); then
+  alias vim='nvim'
+  alias vi='nvim'
+  alias v='nvim'
+fi
+
+(( $+commands[bat] )) && alias cat='bat'
+alias weather='curl https://wttr.in'
+
+if (( $+commands[fzf] && $+commands[bat] )); then
+  alias fzff='fzf --preview "bat --color=always {}" --preview-window "~3"'
+fi
 
 # Aliases: editor
 alias e='$EDITOR'
 alias E='sudo -e'
 
 # Aliases: ls
-alias ls='eza'
-alias l='eza -1A --group-directories-first --color=always --git-ignore'
-alias la='l -l --time-style="+%Y-%m-%d %H:%M" --no-permissions --octal-permissions'
-alias tree='l --tree'
+if (( $+commands[eza] )); then
+  alias ls='eza'
+  alias l='eza -1A --group-directories-first --color=always --git-ignore'
+  alias la='l -l --time-style="+%Y-%m-%d %H:%M" --no-permissions --octal-permissions'
+  alias tree='l --tree'
+fi
 
 # Aliases: git
 alias g='git'
@@ -50,7 +57,9 @@ alias tl='tmux list-sessions'
 alias tn='tmux new-session -s'
 
 # Aliases: rg
-alias rg='rg --hidden --smart-case --glob="!.git/" --no-search-zip --trim --colors=line:fg:black --colors=line:style:bold --colors=path:fg:magenta --colors=match:style:nobold'
+if (( $+commands[rg] )); then
+  alias rg='rg --hidden --smart-case --glob="!.git/" --no-search-zip --trim --colors=line:fg:black --colors=line:style:bold --colors=path:fg:magenta --colors=match:style:nobold'
+fi
 
 # Aliases: human-readable
 alias du='du -h'

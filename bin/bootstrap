@@ -1,0 +1,67 @@
+#!/usr/bin/env bash
+
+set -euo pipefail
+
+dotfiles_dir="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")/.." && pwd -P)"
+
+export XDG_CONFIG_HOME="${XDG_CONFIG_HOME:-$HOME/.config}"
+export XDG_DATA_HOME="${XDG_DATA_HOME:-$HOME/.local/share}"
+export XDG_CACHE_HOME="${XDG_CACHE_HOME:-$HOME/.cache}"
+export XDG_STATE_HOME="${XDG_STATE_HOME:-$HOME/.local/state}"
+export NVM_DIR="${NVM_DIR:-$XDG_DATA_HOME/nvm}"
+export TMUX_PLUGIN_MANAGER_PATH="${TMUX_PLUGIN_MANAGER_PATH:-$XDG_DATA_HOME/tmux/plugins}"
+
+brew_bin=""
+for brew_candidate in \
+  "$(command -v brew 2>/dev/null || true)" \
+  /opt/homebrew/bin/brew \
+  /usr/local/bin/brew \
+  /home/linuxbrew/.linuxbrew/bin/brew
+do
+  if [[ -n "$brew_candidate" && -x "$brew_candidate" ]]; then
+    brew_bin="$brew_candidate"
+    break
+  fi
+done
+
+if [[ -z "$brew_bin" ]]; then
+  printf 'Homebrew is required. Install it from https://brew.sh and rerun this script.\n' >&2
+  exit 1
+fi
+
+eval "$("$brew_bin" shellenv)"
+"$brew_bin" bundle --no-upgrade --file="$dotfiles_dir/Brewfile"
+
+mkdir -p \
+  "$XDG_CONFIG_HOME" \
+  "$XDG_DATA_HOME" \
+  "$XDG_CACHE_HOME/zsh" \
+  "$XDG_STATE_HOME/zsh" \
+  "$TMUX_PLUGIN_MANAGER_PATH"
+
+stow_args=(
+  --dir="$dotfiles_dir"
+  --target="$HOME"
+  --dotfiles
+  --no-folding
+  --restow
+)
+
+stow --simulate "${stow_args[@]}" .
+stow "${stow_args[@]}" .
+
+if [[ ! -d "$NVM_DIR/.git" ]]; then
+  git clone --branch v0.40.3 --depth 1 https://github.com/nvm-sh/nvm.git "$NVM_DIR"
+fi
+
+tpm_dir="$TMUX_PLUGIN_MANAGER_PATH/tpm"
+if [[ ! -d "$tpm_dir/.git" ]]; then
+  git clone --depth 1 https://github.com/tmux-plugins/tpm.git "$tpm_dir"
+fi
+
+printf '\nBootstrap complete.\n'
+printf 'Create ~/.config/git/config.local from the included example before committing.\n'
+printf 'Start tmux and press prefix + I once to install its plugins.\n'
+if [[ ${SHELL##*/} != zsh ]]; then
+  printf 'Your login shell is not Zsh; start the Homebrew Zsh or change shells according to your workstation policy.\n'
+fi

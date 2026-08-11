@@ -1,5 +1,1 @@
-dot-config/cache
-dot-config/zsh/.zcompdump
-dot-config/zsh/.zsh_history
-dot-config/zsh/.zsh_sessions/
-dot-config/local
+.DS_Store

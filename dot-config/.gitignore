@@ -1,5 +1,13 @@
-zsh/.zcompcache/*
+broot/
+cache/
+caddy/
+git/config.local
+graphite/user_config
+local/
+nvm/
+tmux/plugins/
+zsh/.zcompcache/
+zsh/.zcompdump*
 zsh/.zhistory
-caddy
-broot
-nvm
+zsh/.zsh_history
+zsh/.zsh_sessions/
