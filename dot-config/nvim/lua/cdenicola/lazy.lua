@@ -1,5 +1,6 @@
 return {
-  -- Add your plugin specs here, e.g. { "tpope/vim-surround" }
+  { import = "cdenicola.lazy.colorscheme" },
+  { import = "cdenicola.lazy.statusline" },
   { import = "cdenicola.lazy.tmux" },
   { import = "cdenicola.lazy.plugins" },
 }
