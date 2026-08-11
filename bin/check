@@ -1,0 +1,63 @@
+#!/usr/bin/env bash
+
+set -euo pipefail
+
+dotfiles_dir="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")/.." && pwd -P)"
+
+printf 'Checking Zsh syntax...\n'
+zsh -n \
+  "$dotfiles_dir/dot-zshenv" \
+  "$dotfiles_dir/dot-config/zsh/.zshenv" \
+  "$dotfiles_dir/dot-config/zsh/.zprofile" \
+  "$dotfiles_dir/dot-config/zsh/.zshrc" \
+  "$dotfiles_dir/dot-config/zsh/aliases.zsh"
+
+printf 'Checking Git configuration...\n'
+git config --file "$dotfiles_dir/dot-config/git/config" --list >/dev/null
+git -C "$dotfiles_dir" diff --check
+
+if git -C "$dotfiles_dir" ls-files --error-unmatch dot-config/graphite/user_config >/dev/null 2>&1; then
+  printf 'Graphite user_config is tracked and may contain an auth token.\n' >&2
+  exit 1
+fi
+
+printf 'Checking Stow plan...\n'
+stow \
+  --simulate \
+  --dir="$dotfiles_dir" \
+  --target="$HOME" \
+  --dotfiles \
+  --no-folding \
+  --restow \
+  .
+
+if command -v nvim >/dev/null 2>&1; then
+  printf 'Checking Neovim startup...\n'
+  nvim --headless '+qa'
+fi
+
+if command -v ghostty >/dev/null 2>&1; then
+  printf 'Checking Ghostty configuration...\n'
+  ghostty +validate-config
+fi
+
+if command -v tmux >/dev/null 2>&1; then
+  printf 'Checking tmux configuration...\n'
+  tmux_socket="dotfiles-check-$$"
+  cleanup_tmux() {
+    tmux -L "$tmux_socket" kill-server >/dev/null 2>&1 || true
+  }
+  trap cleanup_tmux EXIT
+  TMUX_PLUGIN_MANAGER_PATH="${TMUX_PLUGIN_MANAGER_PATH:-$HOME/.local/share/tmux/plugins}" \
+    tmux -L "$tmux_socket" -f "$dotfiles_dir/dot-config/tmux/tmux.conf" \
+    new-session -d -s dotfiles-check
+  cleanup_tmux
+  trap - EXIT
+fi
+
+if command -v aerospace >/dev/null 2>&1; then
+  printf 'Checking AeroSpace configuration path...\n'
+  aerospace config --config-path >/dev/null
+fi
+
+printf 'All checks passed.\n'

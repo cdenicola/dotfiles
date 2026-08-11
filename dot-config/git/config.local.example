@@ -1,0 +1,8 @@
+# Copy this file to ~/.config/git/config.local and edit it on each machine.
+[user]
+    name = Your Name
+    email = you@example.com
+
+# A work identity can override the default for repositories below ~/work/.
+#[includeIf "gitdir:~/work/"]
+#    path = ~/.config/git/config.work

@@ -1,3 +1,13 @@
-^/README.*
-^/.git
-^/submodules
+^/\.git$
+^/\.gitignore$
+^/\.gitmodules$
+^/\.stow-local-ignore$
+^/Brewfile$
+^/README\.md$
+^/bin$
+^/submodules$
+^/(dot-config|\.config)/\.gitignore$
+^/(dot-config|\.config)/(broot|cache|caddy|local|nvm)(/.*)?$
+^/(dot-config|\.config)/graphite/user_config$
+^/(dot-config|\.config)/tmux/plugins(/.*)?$
+^/(dot-config|\.config)/zsh/\.(zcompcache|zcompdump.*|zhistory|zsh_history|zsh_sessions)(/.*)?$
