@@ -54,14 +54,21 @@ if [[ ! -d "$NVM_DIR/.git" ]]; then
   git clone --branch v0.40.3 --depth 1 https://github.com/nvm-sh/nvm.git "$NVM_DIR"
 fi
 
+tpm_version="v3.1.0"
 tpm_dir="$TMUX_PLUGIN_MANAGER_PATH/tpm"
 if [[ ! -d "$tpm_dir/.git" ]]; then
-  git clone --depth 1 https://github.com/tmux-plugins/tpm.git "$tpm_dir"
+  git clone \
+    --branch "$tpm_version" \
+    --depth 1 \
+    https://github.com/tmux-plugins/tpm.git \
+    "$tpm_dir"
 fi
+
+tmux start-server \; set-environment -g TMUX_PLUGIN_MANAGER_PATH "$TMUX_PLUGIN_MANAGER_PATH"
+"$tpm_dir/bin/install_plugins"
 
 printf '\nBootstrap complete.\n'
 printf 'Create ~/.config/git/config.local from the included example before committing.\n'
-printf 'Start tmux and press prefix + I once to install its plugins.\n'
 if [[ ${SHELL##*/} != zsh ]]; then
   printf 'Your login shell is not Zsh; start the Homebrew Zsh or change shells according to your workstation policy.\n'
 fi
