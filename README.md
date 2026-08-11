@@ -19,7 +19,7 @@ The bootstrap script:
 - uses macOS-only casks only on macOS;
 - stows individual files with directory folding disabled;
 - installs NVM under `~/.local/share/nvm`; and
-- installs TPM under `~/.local/share/tmux/plugins`.
+- installs TPM and the configured tmux plugins under `~/.local/share/tmux/plugins`.
 
 It stops on existing-file conflicts and never adopts or overwrites an existing configuration.
 
@@ -53,7 +53,7 @@ git -C "$HOME/.dotfiles" pull --ff-only
 "$HOME/.dotfiles/bin/bootstrap"
 ```
 
-Inside tmux, press `prefix` + `I` to install new plugins and `prefix` + `U` to update them. Neovim plugins are managed by lazy.nvim and pinned in `lazy-lock.json`.
+Bootstrap installs missing tmux plugins noninteractively. Inside tmux, `prefix` + `I` reruns installation and `prefix` + `U` updates plugins that follow an upstream branch. Neovim plugins are managed by lazy.nvim and pinned in `lazy-lock.json`.
 
 ## Validation
 
