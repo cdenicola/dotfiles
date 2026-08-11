@@ -48,7 +48,7 @@ if command -v tmux >/dev/null 2>&1; then
     tmux -L "$tmux_socket" kill-server >/dev/null 2>&1 || true
   }
   trap cleanup_tmux EXIT
-  TMUX_PLUGIN_MANAGER_PATH="${TMUX_PLUGIN_MANAGER_PATH:-$HOME/.local/share/tmux/plugins}" \
+  env -u XDG_CONFIG_HOME -u XDG_DATA_HOME -u TMUX_PLUGIN_MANAGER_PATH \
     tmux -L "$tmux_socket" -f "$dotfiles_dir/dot-config/tmux/tmux.conf" \
     new-session -d -s dotfiles-check
   cleanup_tmux
