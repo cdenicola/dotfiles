@@ -32,10 +32,6 @@ return {
     opts = {},
   },
   {
-    "vimpostor/vim-tpipeline",
-    event = "VeryLazy",
-  },
-  {
     "norcalli/nvim-colorizer.lua",
     event = { "BufReadPost", "BufNewFile" },
     config = function()
